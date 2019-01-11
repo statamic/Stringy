@@ -1,7 +1,9 @@
-![Stringy](http://danielstjules.com/github/stringy-logo.png)
+# Stringy
+
+> This is a maintained fork of [danielstjules/Stringy](https://github.com/danielstjules/Stringy) in order to support PHP 7.3 compatibility.
 
 A PHP string manipulation library with multibyte support. Compatible with PHP
-5.4+, PHP 7+, and HHVM.
+5.4+, PHP 7+ (including PHP 7.3), and HHVM.
 
 ``` php
 s('string')->toTitleCase()->ensureRight('y') == 'Stringy'
