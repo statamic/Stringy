@@ -36,5 +36,8 @@
     },
     "autoload-dev": {
         "classmap": [ "tests" ]
+    },
+    "replace": {
+        "danielstjules/stringy": "1.1.0"
     }
 }
