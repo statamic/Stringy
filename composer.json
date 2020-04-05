@@ -38,6 +38,6 @@
         "classmap": [ "tests" ]
     },
     "replace": {
-        "danielstjules/stringy": "1.1.0"
+        "danielstjules/stringy": "1.10.0"
     }
 }
