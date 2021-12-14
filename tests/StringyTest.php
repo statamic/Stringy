@@ -30,23 +30,16 @@ class StringyTestCase extends TestCase
         $this->assertEquals('', (string) $stringy);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testConstructWithArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         (string) new S([]);
-        $this->fail('Expecting exception when the constructor is passed an array');
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testMissingToString()
     {
+        $this->expectException(InvalidArgumentException::class);
         (string) new S(new stdClass());
-        $this->fail('Expecting exception when the constructor is passed an ' .
-                    'object without a __toString method');
     }
 
     /**
@@ -142,29 +135,23 @@ class StringyTestCase extends TestCase
         $this->assertEquals('ô', $stringy[2]);
     }
 
-    /**
-     * @expectedException \OutOfBoundsException
-     */
     public function testOffsetGetOutOfBounds()
     {
+        $this->expectException(OutOfBoundsException::class);
         $stringy = S::create('fòô', 'UTF-8');
         $test = $stringy[3];
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testOffsetSet()
     {
+        $this->expectException(\Exception::class);
         $stringy = S::create('fòô', 'UTF-8');
         $stringy[1] = 'invalid';
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testOffsetUnset()
     {
+        $this->expectException(\Exception::class);
         $stringy = S::create('fòô', 'UTF-8');
         unset($stringy[1]);
     }
@@ -729,11 +716,9 @@ class StringyTestCase extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testPadException()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $stringy = S::create('foo');
         $result = $stringy->pad(5, 'foo', 'bar');
     }

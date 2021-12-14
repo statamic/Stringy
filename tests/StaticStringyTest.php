@@ -5,11 +5,9 @@ use Stringy\StaticStringy as S;
 
 class StaticStringyTestCase extends TestCase
 {
-    /**
-     * @expectedException BadMethodCallException
-     */
     public function testBadMethodCall()
     {
+        $this->expectException(BadMethodCallException::class);
         $result = S::invalidMethod('foo');
     }
 
