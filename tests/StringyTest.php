@@ -248,9 +248,9 @@ class StringyTestCase extends TestCase
     public function testChars($expected, $str, $encoding = null)
     {
         $result = S::create($str, $encoding)->chars();
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         foreach ($result as $char) {
-            $this->assertInternalType('string', $char);
+            $this->assertIsString($char);
         }
         $this->assertEquals($expected, $result);
     }
@@ -271,7 +271,7 @@ class StringyTestCase extends TestCase
     {
         $result = S::create($str, $encoding)->lines();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         foreach ($result as $line) {
             $this->assertStringy($line);
         }
@@ -813,7 +813,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->startsWith($substring, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -843,7 +843,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->startsWithAny($substrings, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -873,7 +873,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->endsWith($substring, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -903,7 +903,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->endsWithAny($substrings, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -932,7 +932,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->toBoolean();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -1151,7 +1151,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($haystack, $encoding);
         $result = $stringy->contains($needle, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($haystack, $stringy);
     }
@@ -1191,7 +1191,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($haystack, $encoding);
         $result = $stringy->containsAny($needles, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($haystack, $stringy);
     }
@@ -1242,7 +1242,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($haystack, $encoding);
         $result = $stringy->containsAll($needles, $caseSensitive);
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($haystack, $stringy);
     }
@@ -1685,7 +1685,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->length();
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -1744,7 +1744,7 @@ class StringyTestCase extends TestCase
         $stringy = S::create($str, $encoding);
         $result = $stringy->split($pattern, $limit);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         foreach ($result as $string) {
             $this->assertStringy($string);
         }
@@ -2046,7 +2046,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isAlpha();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2074,7 +2074,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isAlphanumeric();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2105,7 +2105,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isBlank();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2138,7 +2138,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isJson();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2176,7 +2176,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isLowerCase();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2202,7 +2202,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->hasLowerCase();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2232,7 +2232,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isSerialized();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2257,7 +2257,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str);
         $result = $stringy->isBase64();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2282,7 +2282,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isUpperCase();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2308,7 +2308,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->hasUpperCase();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2338,7 +2338,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->isHexadecimal();
-        $this->assertInternalType('boolean', $result);
+        $this->assertIsBool($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
@@ -2370,7 +2370,7 @@ class StringyTestCase extends TestCase
     {
         $stringy = S::create($str, $encoding);
         $result = $stringy->countSubstr($substring, $caseSensitive);
-        $this->assertInternalType('int', $result);
+        $this->assertIsInt($result);
         $this->assertEquals($expected, $result);
         $this->assertEquals($str, $stringy);
     }
