@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Stringy\StaticStringy as S;
 
-class StaticStringyTestCase extends PHPUnit_Framework_TestCase
+class StaticStringyTestCase extends TestCase
 {
     /**
      * @expectedException BadMethodCallException

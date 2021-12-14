@@ -24,7 +24,7 @@
         "symfony/polyfill-mbstring": "~1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "^9.0"
     },
     "support": {
         "issues": "https://github.com/statamic/Stringy/issues",

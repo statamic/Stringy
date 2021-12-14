@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Stringy\Stringy as S;
 
-class StringyTestCase extends PHPUnit_Framework_TestCase
+class StringyTestCase extends TestCase
 {
     /**
      * Asserts that a variable is of a Stringy instance.
