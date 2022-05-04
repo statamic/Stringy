@@ -873,6 +873,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @throws \OutOfBoundsException If the positive or negative offset does
      *                               not exist
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $offset = (int) $offset;
