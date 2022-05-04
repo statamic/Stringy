@@ -451,6 +451,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @return \ArrayIterator An iterator for the characters in the string
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->chars());
@@ -848,6 +849,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  mixed   $offset The index to check
      * @return boolean Whether or not the index exists
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         $length = $this->length();
@@ -891,6 +893,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  mixed      $value  Value to set
      * @throws \Exception When called
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         // Stringy is immutable, cannot directly set char
@@ -904,6 +907,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      * @param  mixed      $offset The index of the character
      * @throws \Exception When called
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         // Don't allow directly modifying the string
