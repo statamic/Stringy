@@ -267,6 +267,7 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
      *
      * @return int The number of characters in the string, given the encoding
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return $this->length();
