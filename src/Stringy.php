@@ -1285,15 +1285,10 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
         // supplying a limit
         $limit = ($limit > 0) ? $limit += 1 : -1;
 
-        static $functionExists;
-        if ($functionExists === null) {
-            $functionExists = function_exists('\mb_split');
-        }
-
-        if ($functionExists) {
+        if ($this->supportsMbRegex()) {
             $array = \mb_split($pattern, $this->str, $limit);
         } else if ($this->supportsEncoding()) {
-            $array = \preg_split("/$pattern/", $this->str, $limit);
+            $array = \preg_split("/$pattern/su", $this->str, $limit);
         }
 
         $this->regexEncoding($regexEncoding);
@@ -1934,7 +1929,12 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
         $regexEncoding = $this->regexEncoding();
         $this->regexEncoding($this->encoding);
 
-        $match = \mb_ereg_match($pattern, $this->str);
+        if ($this->supportsMbRegex()) {
+            $match = \mb_ereg_match($pattern, $this->str);
+        } else if ($this->supportsEncoding()) {
+            $match = (bool) \preg_match("/^$pattern/su", $this->str);
+        }
+
         $this->regexEncoding($regexEncoding);
 
         return $match;
@@ -1942,39 +1942,52 @@ class Stringy implements Countable, IteratorAggregate, ArrayAccess
 
     /**
      * Alias for mb_ereg_replace with a fallback to preg_replace if the
-     * mbstring module is not installed.
+     * mbstring regex functions are unavailable or deprecated.
      */
     protected function eregReplace($pattern, $replacement, $string, $option = 'msr')
     {
-        static $functionExists;
-        if ($functionExists === null) {
-            $functionExists = function_exists('\mb_split');
-        }
-
-        if ($functionExists) {
+        if ($this->supportsMbRegex()) {
             return \mb_ereg_replace($pattern, $replacement, $string, $option);
         } else if ($this->supportsEncoding()) {
-            $option = str_replace('r', '', $option);
-            return \preg_replace("/$pattern/u$option", $replacement, $string);
+            $option = strtr($option, ['m' => 's', 's' => '', 'r' => '']);
+
+            return \preg_replace_callback("/$pattern/u$option", function ($matches) use ($replacement) {
+                return \preg_replace_callback('/\\\\(\d)/', function ($reference) use ($matches) {
+                    return array_key_exists($reference[1], $matches)
+                        ? (string) $matches[$reference[1]]
+                        : $reference[0];
+                }, $replacement);
+            }, $string, -1, $count, PREG_UNMATCHED_AS_NULL);
         }
     }
 
     /**
      * Alias for mb_regex_encoding which default to a noop if the mbstring
-     * module is not installed.
+     * regex functions are unavailable or deprecated.
      */
     protected function regexEncoding()
     {
-        static $functionExists;
-
-        if ($functionExists === null) {
-            $functionExists = function_exists('\mb_regex_encoding');
-        }
-
-        if ($functionExists) {
+        if ($this->supportsMbRegex()) {
             $args = func_get_args();
             return call_user_func_array('\mb_regex_encoding', $args);
         }
+    }
+
+    /**
+     * Returns whether the mbstring regex functions can be used. They're
+     * deprecated as of PHP 8.6, so the preg functions are used instead.
+     *
+     * @return bool
+     */
+    protected function supportsMbRegex()
+    {
+        static $supportsMbRegex;
+
+        if ($supportsMbRegex === null) {
+            $supportsMbRegex = PHP_VERSION_ID < 80600 && function_exists('\mb_split');
+        }
+
+        return $supportsMbRegex;
     }
 
     protected function supportsEncoding()
